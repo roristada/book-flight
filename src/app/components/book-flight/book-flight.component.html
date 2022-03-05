@@ -52,7 +52,7 @@
 
         <div style="margin-left:20px">
           <label>Arival</label>
-          <span style="color: red" *ngIf="book.get('departure')?.errors?.['required']">*required</span><br>
+          <span style="color: red" *ngIf="book.get('arrival')?.errors?.['required']">*required</span><br>
           <mat-form-field appearance="fill">
             <mat-label>Arival Date</mat-label>
             <input matInput [matDatepicker]="picker2" formControlName="arrival" [min]="book.value.departure">
