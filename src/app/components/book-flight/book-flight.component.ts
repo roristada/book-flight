@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl} from '@angular/forms';
 import { Flight } from './flight';
+import { PageService } from './page.service';
 
 @Component({
   selector: 'app-book-flight',
@@ -13,7 +14,7 @@ export class BookFlightComponent implements OnInit {
   flightD: any = [ ];
   setDate: Date
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private page:PageService) {
     this.flight = new Flight("","","","",0,new Date(),0,0,new Date())
     this.setDate = new Date(Date.now())
     this.book = this.fb.group({
@@ -30,9 +31,11 @@ export class BookFlightComponent implements OnInit {
     })
    }
   ngOnInit(): void {
-
+    this.getPage()
   }
-
+  getPage(){
+    this.flightD = this.page.getPages()
+  }
 
   submit() :void{
     confirm("Confirm Book A Flight ?")
