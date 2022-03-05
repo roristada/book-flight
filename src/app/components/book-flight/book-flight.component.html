@@ -1,0 +1,121 @@
+<div class="container mt-2 pb-5 border" style="width: 100%;">
+  <div class="row">
+    <h1 class="mt-4 text-center">Book a Flight</h1>
+    <form [formGroup]="book">
+      <div class="mx-auto w-50">
+        <label class="m-1">Full Name</label>
+        <span style="color: red" *ngIf="book.get('fullName')?.errors?.['required']">*required</span>
+        <input type="text" formControlName="fullName" class="w-100 form-control">
+      </div>
+      <div class="mx-auto w-50 my-3 d-flex justify-content-between" >
+        <div>
+          <label class="m-1">From</label><span style="color: red" *ngIf="book.get('from')?.errors?.['required']">*required</span><br>
+          <select name="from" id="from" formControlName="from" class="form-select" style="width: 300px;">
+            <option value="Thailand">Thailand</option>
+            <option value="Korea">Korea</option>
+            <option value="France">France</option>
+            <option value="Germany">Germany</option>
+            <option value="Italy">Italy</option>
+          </select>
+        </div>
+        <div>
+          <label class="m-1">To</label><span style="color: red" *ngIf="book.get('to')?.errors?.['required']">*required</span><br>
+          <select name="to" id="to" formControlName="to" class="form-select" style="width: 300px;">
+            <option value="Thailand">Thailand</option>
+            <option value="Korea">Korea</option>
+            <option value="Franced">France</option>
+            <option value="Germany">Germany</option>
+            <option value="Italy">Italy</option>
+          </select>
+        </div>
+
+      </div>
+      <div class="mx-auto w-50 d-flex my-3">
+
+        <div class="col-4 justify-content">
+          <label class="mb-2">Trip Type</label><span style="color: red" *ngIf="book.get('type')?.errors?.['required']">*required</span><br>
+          <input type="radio" value="One way" class="mx-1" formControlName="type">
+          <label class="mx-1">One way</label>
+          <input type="radio" value="Return" class="mx-1" formControlName="type">
+          <label class="mx-1">Return</label>
+        </div>
+        <div>
+          <label>Departure</label>
+          <span style="color: red" *ngIf="book.get('departure')?.errors?.['required']">*required</span><br>
+          <mat-form-field appearance="fill">
+            <mat-label>Departure Date</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="departure" [min]="setDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div style="margin-left:20px">
+          <label>Arival</label>
+          <span style="color: red" *ngIf="book.get('departure')?.errors?.['required']">*required</span><br>
+          <mat-form-field appearance="fill">
+            <mat-label>Arival Date</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName="arrival" [min]="book.value.departure">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="mx-auto w-50">
+        <div class="d-flex justify-content d-flex">
+          <div >
+            <label>Adults</label>
+            <span style="color: red" *ngIf="book.get('adults')?.errors?.['required']">*required</span>
+            <span style="color: red" *ngIf="book.get('adults')?.errors?.['max']">*Max 10 seats</span>
+            <input type="number" formControlName="adults" class="form-control input-sm w-60" value="0">
+          </div>
+          <div class="mx-3">
+            <label>Children</label>
+            <span style="color: red" *ngIf="book.get('children')?.errors?.['required']">*required</span>
+            <span style="color: red" *ngIf="book.get('children')?.errors?.['max']">*Max 10 seats</span>
+            <input type="number" formControlName="children" class="form-control input-sm w-60" value="0">
+          </div>
+          <div>
+            <label>infants</label>
+            <span style="color: red" *ngIf="book.get('infants')?.errors?.['required']">*required</span>
+            <span style="color: red" *ngIf="book.get('infants')?.errors?.['max']">*Max 10 seats</span>
+            <input type="number" formControlName="infants" class="form-control input-sm w-60" value="0">
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-primary mt-4 w-50" [disabled]="book.invalid" (click)="submit()">Submit</button>
+      </div>
+    </form>
+
+    <table class="table mt-5 text-center">
+      <thead>
+        <tr>
+          <th scope="col">Full Name</th>
+          <th scope="col">From</th>
+          <th scope="col">To</th>
+          <th scope="col">Type</th>
+          <th scope="col">Departure</th>
+          <th scope="col">Arrival</th>
+          <th scope="col">Adults</th>
+          <th scope="col">Children</th>
+          <th scope="col">Infants</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let f of flightD">
+          <td>{{ f.fullName }}</td>
+          <td>{{ f.from }}</td>
+          <td>{{ f.to }}</td>
+          <td>{{ f.type }}</td>
+          <td>{{ f.departure.getDate() + '/' + (f.departure.getMonth() + 1) + '/' + (f.departure.getFullYear()+543) }}</td>
+          <td>{{ f.arrival.getDate() + '/' + (f.arrival.getMonth() + 1) + '/' + (f.arrival.getFullYear()+543) }}</td>
+          <td>{{ f.adults }}</td>
+          <td>{{ f.children }}</td>
+          <td>{{ f.infants }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
